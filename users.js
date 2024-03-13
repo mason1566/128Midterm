@@ -1,4 +1,4 @@
-user0,Mason,Johnson,c0514274@camosun.ca,owner,images/user0
+const userDataString = `user0,Mason,Johnson,c0514274@camosun.ca,owner,images/user0
 user1,Denis,Williams,DenisEWilliams@dayrep.com,admin,images/user1
 user2,Roberto,Jepsen,rjep228@gmail.com,user,images/user2
 user3,Melissa,Dorsey,MelissaWDorsey@teleworm.us,user,images/user3
@@ -13,4 +13,4 @@ user11,Debra,Carey,dagoodcarey@gmail.com,admin,images/user11
 user12,Daniel,Montenegro,danielmonty@aol.com,user,images/user12
 user13,Carolyn,Johnson,cj22ohnson@gmail.com,user,images/user13
 user14,Gerri,Smith,gsmitty@email.com,user,images/user14
-user15,Kyle,Hamrick,kylehamrick7@gmail.com,user,images/user15
+user15,Kyle,Hamrick,kylehamrick7@gmail.com,user,images/user15`;
