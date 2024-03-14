@@ -5,7 +5,7 @@ user3,Melissa,Dorsey,MelissaWDorsey@teleworm.us,user,images/user3
 user4,Bertha,Alford,berthaa@hotmail.com,user,images/user4
 user5,Robert,Labarre,bigrobL@robslounge.com,admin,images/user5
 user6,Delbert,Wells,dontdwellonit@gmail.com,user,images/user6
-user7,Mavis,Scroggins,mscroggins@email.com,user,images/user7
+user7,Mavis,Scroggins,mscroggs@email.com,user,images/user7
 user8,Tony,Simmons,tonyjsimmons@rhyta.com,user,images/user8
 user9,Victor,Shortt,vshort893@gmail.com,user,images/user9
 user10,Ellen,Preston,EllenBPreston@dayrep.com,user,images/user10

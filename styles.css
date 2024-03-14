@@ -1,0 +1,55 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --midnight-green: rgb(28, 71, 85);
+    --lapis-lazuli: #456990ff;
+    --honeydew: #f4fff2ff;
+    --bright-pink-crayola: #f45b69ff;
+    --wine: #6b2737ff; 
+}
+
+/* colour stuff */
+.bg-colour {
+    background-color: var(--honeydew) !important;
+}
+
+.header-colour {
+    background-color: var(--lapis-lazuli) !important;
+}
+
+
+/* custom styles */
+.button-style {
+    background-color: var(--midnight-green) !important;
+    color: white !important;
+    font-weight: bold;
+    box-shadow: 1px 1px 0 3px white !important;
+    border-radius: 5px !important;
+}
+
+.button-style:hover {
+    background-color:  rgb(38, 93, 111) !important;
+    box-shadow: 1px 1px 0 3px rgb(224, 222, 222) !important;
+    color: rgb(231, 230, 230) !important;
+}
+
+.card-style {
+    border: 0 !important;
+    border-radius: 10px !important;
+    box-shadow: 1px 1px 0 3px black;
+}
+
+.text-input-style {
+    border: 0 !important;
+    box-shadow: 1px 1px 0 2px black!important;
+}
+
+
+
+/* single-element styling */
+#header {
+    box-shadow: 0px 5px black;
+}
