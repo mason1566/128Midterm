@@ -15,6 +15,7 @@
             <span>STAFF LANDING</span>
         </a>
         <button class="btn button-style ms-auto" id="navLoginButton" style="width: 100px;">LOGIN</button>
+        <button class="btn button-style ms-auto" id="navLogoutButton" style="width: 100px;">LOGOUT</button>
     </header>
 
     <!-- LOGIN VIEW -->
@@ -44,17 +45,17 @@
     </section>
 
     <!-- PROFILE VIEW -->
-    <section class="mt-5 container" id="profileView">
-        <div class="card card-style col-10 col-md-6 mx-auto" style="height: 470px;">
+    <section class="mt-5 container d-flex gap-4 flex-column flex-md-row justify-content-center" id="profileView">
+        <div class="card card-style col-10 col-md-8 col-lg-6" style="height: 470px;">
             <!-- profile body -->
             <div class="card-body p-0 pt-5 d-flex justify-content-start align-items-center flex-column">
-                <div class="mx-auto"><img src="images/user1.jpeg" class="profile-image" alt=""></div>
-                <p class="card-title fw-bold fs-2 mt-3">Welcome, Dennis!</p>
+                <div class="mx-auto"><img src="images/user10.jpeg" class="profile-image" alt=""></div>
+                <p class="card-title fw-bold fs-2 mt-3">Welcome, Ellen!</p>
 
                 <div class="d-flex justify-content-between w-100 mt-3">
                     <div class="flex-grow-1 flex-fill text-center d-flex flex-column">
                         <p class="fs-5">How are you today?</p>
-                        <div class="d-flex justify-content-around mt-4 mb-3">
+                        <div class="d-flex justify-content-center gap-4 mt-4 mb-3">
                             <button class="btn button-outline btn-danger fw-bold px-2 py-1">NOT GOOD</button>
                             <button class="btn button-outline btn-success fw-bold px-2 py-1">GOOD</button>
                         </div>
@@ -62,11 +63,24 @@
                     <div class="flex-grow-1 flex-fill">
                         <p class="fs-5 ps-5">Navigation:</p>
                         <ul class="ps-5 ms-5 list-unstyled">
-                            <li><a href="">Account Info</a></li>
-                            <li><a href="">View Users</a></li>
-                            <li><a href="">Logout</a></li>
+                            <li><a href="#" id="accountInfoLink">Account Info</a></li>
+                            <li><a href="#" id="viewUsersLink">View Users</a></li>
+                            <li><a href="#" id="logoutLink">Logout</a></li>
                         </ul>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="card card-style col-10 col-md-5 col-lg-3" style="height: 310px;">
+            <!-- account info -->
+            <div class="card-body p-0 pt-4 d-flex justify-content-start align-items-center flex-column">
+                <p class="card-title fw-bold fs-2 mt-3">Account Info:</p>
+                <div class="d-flex align-items-end flex-column fs-6 mt-2">
+                    <p class="mb-0"><span class="fw-bold">Username:</span> <span class="ms-3">user10</span></p>
+                    <p class="mt-2 mb-0"><span class="fw-bold">First Name:</span> <span class="ms-3">Ellen</span></p>
+                    <p class="mt-2 mb-0"><span class="fw-bold">Last Name:</span> <span class="ms-3">Ellen</span></p>
+                    <p class="mt-2 mb-0"><span class="fw-bold">Email:</span> <span class="ms-3">Ellen</span></p>
+                    <p class="mt-2 mb-0"><span class="fw-bold">Role:</span> <span class="ms-3">Ellen</span></p>
                 </div>
             </div>
         </div>
