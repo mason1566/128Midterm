@@ -15,3 +15,53 @@ user12,Daniel,Montenegro,danielmonty@aol.com,user,images/user12
 user13,Carolyn,Johnson,cj22ohnson@gmail.com,user,images/user13
 user14,Gerri,Smith,gsmitty@email.com,user,images/user14
 user15,Kyle,Hamrick,kylehamrick7@gmail.com,user,images/user15`;
+
+/* USER CREATION && HANDLING */
+/* function to parse comma-separated user-data into objects. Pushes user objects to userDataArray */
+const parseUserData = (users) => {
+    let userLines = users.split("\n");
+    
+    let splitUserData = [];
+    for (const line of userLines) {
+        splitUserData.push(line.split(","));
+    }
+
+    // Creates an object for each array of user-data
+    for (const userInfo of splitUserData) {
+        let userObj = createUserObject(userInfo);
+        userDataArray.push(userObj);
+    }
+}
+
+const createUserObject = (userArray) => {
+    let currUser = {
+        username: userArray[0],
+        first_name: userArray[1],
+        last_name: userArray[2], 
+        email: userArray[3],
+        role: userArray[4],
+        image: userArray[5]
+    };
+
+    return currUser;
+}
+
+const printUsers = () => {
+    for (let i = 0; i < userDataArray.length; i++) {
+        console.log(userDataArray[i]);
+    }
+}
+
+const checkValidUser = (username) => {
+    for (const user of userDataArray) {
+        if (user.username == username) return true;
+    }
+    return false;
+}
+
+const getUser = (username) => {
+    for (const user of userDataArray) {
+        if (user.username == username) return user;
+    }
+    return null;
+}
