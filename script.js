@@ -66,8 +66,6 @@ const buildUsersView = () => {
 }
 
 
-
-
 /* MAIN LOGIC/SETUP */
 const userDataArray = []; // main user array. Each element in the array is to hold a user object.
 parseUserData(userDataString); // populate userDataArray with pre-made user-data

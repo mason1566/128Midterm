@@ -130,3 +130,21 @@ const buildUserCard = (userObj) => {
                 </div>`
     return card
 };
+
+const buildDeletableCard = (userObj) => {
+    let card = `<div class="card card-style col-10 col-md-5 col-lg-3 flex-wrap" style="height: 310px;" id="accountInfo">
+                    <!-- account info -->
+                    <div class="card-body p-0 ps-1 pt-4 d-flex justify-content-start align-items-center flex-column">
+                        <div class="mx-auto"><img src="${userObj.image}.jpeg" class="usersView-image" alt=""></div>
+                        <div class="d-flex align-items-start flex-column fs-6 mt-3">
+                            <p class="mb-0"><span class="fw-bold">Username:</span> <span class="ms-3">${userObj.username}</span></p>
+                            <p class="mt-2 mb-0"><span class="fw-bold">First Name:</span> <span class="ms-3">${userObj.first_name}</span></p>
+                            <p class="mt-2 mb-0"><span class="fw-bold">Last Name:</span> <span class="ms-3">${userObj.last_name}</span></p>
+                            <p class="mt-2 mb-0"><span class="fw-bold">Email:</span> <span class="ms-3">${userObj.email}</span></p>
+                            <p class="mt-2 mb-0"><span class="fw-bold">Role:</span> <span class="ms-3">${userObj.role}</span></p>
+                        </div>
+                        <button type="button" class="btn btn-danger mt-auto mb-3 align-self-end me-3 p-1" id="${userObj.username}Delete">DELETE</button>
+                    </div>
+                </div>`
+    return card
+}
