@@ -16,24 +16,6 @@ const unameTextInput = document.getElementById("usernameInput");
 const profileView = document.getElementById("profileView");
 let accountInfoCard;
 
-const setupProfile = (userObj) => {
-    currentUser = userObj;
-
-    let profile;
-    if (currentUser.role == "user") profile = buildProfile(userObj);
-    else profile = buildAdminProfile(currentUser);
-
-    profileView.innerHTML = profile;
-
-    // adding event listeners for card links
-    document.getElementById("accountInfoLink").addEventListener('click', displayAccountInfo);
-    document.getElementById("viewUsersLink").addEventListener('click', logout);
-    document.getElementById("logoutLink").addEventListener('click', logout);
-    
-    accountInfoCard = document.getElementById("accountInfo");
-    hideElement(accountInfoCard);
-}
-
 const buildProfile = (userObj) => {
     let profileCard = `<div class="card card-style col-10 col-md-6 mx-auto" style="height: 470px;">
                             <!-- profile body -->
@@ -118,16 +100,33 @@ const buildAdminProfile = (userObj) => {
     return profileCard;
 }
 
-const displayAccountInfo = (userObj) => {
+
+const displayAccountInfo = () => {
     showElement(accountInfoCard);
 }
 
 
 /* USERS VIEW */
 const usersView = document.getElementById("usersView");
+let userCardsArray;
 
+const displayUsersInfo = () => {
+    usersView.style.display = "flex";
+}
 
-
-
-
-
+const buildUserCard = (userObj) => {
+    let card = `<div class="card card-style col-10 col-md-5 col-lg-3 flex-wrap" style="height: 310px;" id="accountInfo">
+                    <!-- account info -->
+                    <div class="card-body p-0 ps-1 pt-4 d-flex justify-content-start align-items-center flex-column">
+                        <div class="mx-auto"><img src="${userObj.image}.jpeg" class="usersView-image" alt=""></div>
+                        <div class="d-flex align-items-start flex-column fs-6 mt-3">
+                            <p class="mb-0"><span class="fw-bold">Username:</span> <span class="ms-3">${userObj.username}</span></p>
+                            <p class="mt-2 mb-0"><span class="fw-bold">First Name:</span> <span class="ms-3">${userObj.first_name}</span></p>
+                            <p class="mt-2 mb-0"><span class="fw-bold">Last Name:</span> <span class="ms-3">${userObj.last_name}</span></p>
+                            <p class="mt-2 mb-0"><span class="fw-bold">Email:</span> <span class="ms-3">${userObj.email}</span></p>
+                            <p class="mt-2 mb-0"><span class="fw-bold">Role:</span> <span class="ms-3">${userObj.role}</span></p>
+                        </div>
+                    </div>
+                </div>`
+    return card
+};

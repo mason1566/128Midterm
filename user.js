@@ -65,3 +65,15 @@ const getUser = (username) => {
     }
     return null;
 }
+
+const getViewableUsers = (userObj) => {
+    if (userObj.role == "user") {
+        let users = [];
+        for (const user of userDataArray) {
+            if (user.role == "admin" || user.role == "owner") users.push(user);
+        }
+        users.push(userObj);
+        return users;
+    }
+    else return userDataArray;
+}

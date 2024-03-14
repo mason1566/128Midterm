@@ -2,6 +2,8 @@
 const logout = () => {
     currentUser = "";
     profileView.innerHTML = ``;
+    usersView.innerHTML = ``;
+    accountInfoCard.innerHTML = ``;
     hideAllViews();
     hideElement(navLogoutButton);
 
@@ -21,19 +23,50 @@ loginForm.addEventListener('submit', (e) => {
     let userInput = unameTextInput.value;
 
     let isValid = checkValidUser(userInput); // checks user input against valid usernames, returning true if found.
-    if (isValid) {
-        hideElement(loginView);
-        hideElement(navLoginButton);
-
-        setupProfile(getUser(unameTextInput.value))
-        showElement(profileView);
-        showElement(navLogoutButton);
-    }
+    if (isValid) setupProfile(getUser(unameTextInput.value));
     else console.log("Invalid user");
-    console.log(unameTextInput.value)
 });
 
 navLogoutButton.addEventListener('click', logout);
+
+const setupProfile = (userObj) => {
+    hideElement(loginView);
+    hideElement(navLoginButton);
+    currentUser = userObj;
+
+    // make main user profile card.
+    let profile;
+    if (currentUser.role == "user") profile = buildProfile(userObj);
+    else profile = buildAdminProfile(currentUser);
+
+    profileView.innerHTML = profile;
+
+    // create the users view
+    usersView.innerHTML = buildUsersView();
+    usersView.style.display = "none";
+
+    // adding event listeners for card links
+    document.getElementById("accountInfoLink").addEventListener('click', displayAccountInfo);
+    document.getElementById("viewUsersLink").addEventListener('click', displayUsersInfo);
+    document.getElementById("logoutLink").addEventListener('click', logout);
+    
+    accountInfoCard = document.getElementById("accountInfo");
+    hideElement(accountInfoCard);
+
+    showElement(profileView);
+    showElement(navLogoutButton);
+}
+
+const buildUsersView = () => {
+    const viewableUsers = getViewableUsers(currentUser);
+    let view = ``;
+
+    for (const user of viewableUsers) view += buildUserCard(user);
+    return view;
+}
+
+
+
 
 /* MAIN LOGIC/SETUP */
 const userDataArray = []; // main user array. Each element in the array is to hold a user object.
