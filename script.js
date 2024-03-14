@@ -33,6 +33,12 @@ loginForm.addEventListener('submit', (e) => {
     console.log(unameTextInput.value)
 });
 
-/* MAIN LOGIC */
+navLogoutButton.addEventListener('click', logout);
+
+/* MAIN LOGIC/SETUP */
 const userDataArray = []; // main user array. Each element in the array is to hold a user object.
 parseUserData(userDataString); // populate userDataArray with pre-made user-data
+
+let currentUser; // to hold the currently logged in user
+
+hideElement(navLogoutButton);
