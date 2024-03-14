@@ -17,8 +17,8 @@
         <button class="btn button-style ms-auto" id="navLoginButton" style="width: 100px;">LOGIN</button>
     </header>
 
-    <!-- login form -->
-    <section class="mt-5 container">
+    <!-- LOGIN VIEW -->
+    <section class="mt-5 container" id="loginView">
         <div class="card card-style col-10 col-md-6 mx-auto" style="height: 400px;">
             <div class="card-body p-5">
                 <div class="card-title fw-bold fs-5">Login:</div>
@@ -42,9 +42,43 @@
             </div>
         </div>
     </section>
+
+    <!-- PROFILE VIEW -->
+    <section class="mt-5 container" id="profileView">
+        <div class="card card-style col-10 col-md-6 mx-auto" style="height: 470px;">
+            <!-- profile body -->
+            <div class="card-body p-0 pt-5 d-flex justify-content-start align-items-center flex-column">
+                <div class="mx-auto"><img src="images/user1.jpeg" class="profile-image" alt=""></div>
+                <p class="card-title fw-bold fs-2 mt-3">Welcome, Dennis!</p>
+
+                <div class="d-flex justify-content-between w-100 mt-3">
+                    <div class="flex-grow-1 flex-fill text-center d-flex flex-column">
+                        <p class="fs-5">How are you today?</p>
+                        <div class="d-flex justify-content-around mt-4 mb-3">
+                            <button class="btn button-outline btn-danger fw-bold px-2 py-1">NOT GOOD</button>
+                            <button class="btn button-outline btn-success fw-bold px-2 py-1">GOOD</button>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 flex-fill">
+                        <p class="fs-5 ps-5">Navigation:</p>
+                        <ul class="ps-5 ms-5 list-unstyled">
+                            <li><a href="">Account Info</a></li>
+                            <li><a href="">View Users</a></li>
+                            <li><a href="">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- USERS VIEW -->
+    <section class="mt-5 container" id="usersView">
+
+    </section>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="users.js"></script>
-    <script src="script.js"></script>
+    <script src="users.js"></script> <!-- this script contains pre-made user-data -->
+    <script src="script.js"></script> <!-- contains the main logic of the application -->
 </body>
 </html>
