@@ -1,3 +1,4 @@
+// data is in order: username,first_name,last_name,email,role,image
 const userDataString = `user0,Mason,Johnson,c0514274@camosun.ca,owner,images/user0
 user1,Denis,Williams,DenisEWilliams@dayrep.com,admin,images/user1
 user2,Roberto,Jepsen,rjep228@gmail.com,user,images/user2

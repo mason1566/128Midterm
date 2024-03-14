@@ -1,5 +1,7 @@
-const userDataArray = [];
+/* USER CREATION */
+const userDataArray = []; // main user array. Each element in the array is to hold a user object.
 
+/* function to parse comma-separated user-data into objects. Places user objects in userDataArray */
 const parseUserData = (users) => {
     let userLines = users.split("\n");
     
@@ -8,12 +10,12 @@ const parseUserData = (users) => {
         splitUserData.push(line.split(","));
     }
 
-    for (let i = 0; i < splitUserData.length; i++) {
-        let userObj = createUserObject(splitUserData[i]);
+    // 
+    for (const userInfo of splitUserData) {
+        let userObj = createUserObject(userInfo);
         userDataArray.push(userObj);
     }
 
-    printUsers();
 }
 
 const createUserObject = (userArray) => {
@@ -35,4 +37,18 @@ const printUsers = () => {
     }
 }
 
+
+
+/* DOM MANIPULATION */
+const form = document.getElementById("loginForm");
+
+// overrides default form submit behaviour
+form.addEventListener('submit', (e) => {
+    e.preventDefault(); // done to prevent the page from refreshing (the default submit action)
+    console.log("SUBMIT");
+});
+
+
+/* MAIN LOGIC */
 parseUserData(userDataString);
+

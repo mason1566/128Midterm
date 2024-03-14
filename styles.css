@@ -53,3 +53,28 @@
 #header {
     box-shadow: 0px 5px black;
 }
+
+#loginButton {
+    background-color: var(--midnight-green) !important;
+    color: white !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+    box-shadow: 1px 1px 0 4px rgb(11, 29, 49) !important;
+    border-radius: 3px !important;
+}
+
+#loginButton:hover {
+    box-shadow: 1px 1px 0 6px rgb(17, 44, 74) !important;
+}
+
+#createAccountButton {
+    background-color: var(--lapis-lazuli) !important;
+    color: white !important;
+    font-weight: bold;
+    box-shadow: 1px 1px 0 3px var(--midnight-green) !important;
+    border-radius: 5px !important;
+}
+
+#createAccountButton:hover {
+    box-shadow: 1px 1px 0 6px rgb(34, 84, 101) !important;
+}
