@@ -77,3 +77,11 @@ const getViewableUsers = (userObj) => {
     }
     else return userDataArray;
 }
+
+const getUserIndex = (userObj) => {
+    return userDataArray.findIndex(userObj);
+}
+
+const deleterUser = (index) => {
+    userDataArray.splice(index, 1);
+}
