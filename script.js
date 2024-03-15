@@ -9,12 +9,18 @@ const usersView = document.getElementById("usersView");
 
 // Project declarations
 const userDataArray = []; // main user array. Each element in the array is to hold a user object.
-const userCardsArray = [];
+let userCardsArray = [];
 
 let accountInfoView;
 let logoutButton;
 let accountInfoButton;
 let viewUsersButton;
+
+const addProfileEventListeners = () => {
+    accountInfoButton.addEventListener('click', showAccountInfoView);
+    logoutButton.addEventListener('click', logout);
+    viewUsersButton.addEventListener('click', showUsersView)
+}
 
 /* DOM MANIPULATION */
 const hideElement = (element) => element.style.display = "none";
@@ -101,7 +107,6 @@ const login = (userObj) => {
     hideLoginView();
     constructAccountViews(userObj);
     showProfileView();
-
 }
 
 const tryLogin = () => {
@@ -110,16 +115,22 @@ const tryLogin = () => {
     else console.log("invalid login");
 }
 
-// overrides default form submit behaviour. If username is correct => handles login
-loginForm.addEventListener('submit', tryLogin);
-
+// function to create the profile of a logging-in user
 const constructAccountViews = (userObj) => {
     profileView.innerHTML = buildProfile(userObj); // builds default user profile according to userObj values.
     let users = getViewableUsers(userObj);
-    buildUserCards(userObj, users);
+    userCardsArray = buildUserCards(userObj, users);
 
-    for (const userCard of userCardsArray) usersView.innerHTML += userCard;
-    
+    let cards = ``;
+    for (let i = 0; i < userCardsArray.length; i++) cards += userCardsArray[i];
+    usersView.innerHTML = cards;
+
+    // newly injected html event-listener setup
+    accountInfoView = document.getElementById("accountInfo");
+    logoutButton = document.getElementById("logoutButton");
+    accountInfoButton = document.getElementById("accountInfoButton");
+    viewUsersButton = document.getElementById("viewUsersButton");
+    addProfileEventListeners();
 }
 
 // returns an array of userObjects that the passed-in user is permissible to view
@@ -138,13 +149,18 @@ const getViewableUsers = (userObj) => {
 // used to build the viewable cards for the currently logged-in user
 const buildUserCards = (userObj, usersArray) => {
     let role = userObj.role;
+    cards = [];
 
     if (role == "user") {
-        for (let user of usersArray) {
-            userCardsArray.push(buildUserCard(user));
+        for (let i = 0; i < usersArray.length; i++) {
+            cards.push(buildUserCard(usersArray[i]));
         }
     }
+    return cards
 }
+
+// overrides default form submit behaviour. If username is correct => handles login
+loginForm.addEventListener('submit', tryLogin);
 
 navLogoutButton.addEventListener('click', logout);
 

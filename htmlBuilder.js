@@ -42,7 +42,7 @@ const buildProfile = (userObj) => {
 
 
 const buildUserCard = (userObj) => {
-    let card = `<div class="card card-style col-10 col-md-5 col-lg-3 flex-wrap" style="height: 310px;" id="accountInfo">
+    let card = `<div class="card card-style col-10 col-md-5 col-lg-3 flex-wrap" style="height: 310px;" class="user-card">
                     <!-- account info -->
                     <div class="card-body p-0 ps-1 pt-4 d-flex justify-content-start align-items-center flex-column">
                         <div class="mx-auto"><img src="${userObj.image}.jpeg" class="usersView-image" alt=""></div>
@@ -59,7 +59,7 @@ const buildUserCard = (userObj) => {
 };
 
 const buildDeletableCard = (userObj) => {
-    let card = `<div class="card card-style col-10 col-md-5 col-lg-3 flex-wrap" style="height: 310px;" id="accountInfo">
+    let card = `<div class="card card-style col-10 col-md-5 col-lg-3 flex-wrap" style="height: 310px;" class="user-card">
                     <!-- account info -->
                     <div class="card-body p-0 ps-1 pt-4 d-flex justify-content-start align-items-center flex-column">
                         <div class="mx-auto"><img src="${userObj.image}.jpeg" class="usersView-image" alt=""></div>
