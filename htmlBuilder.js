@@ -6,11 +6,11 @@ const buildProfile = (userObj) => {
                                 <p class="card-title fw-bold fs-2 mt-3">Welcome, ${userObj.first_name}!</p>
 
                                 <div class="d-flex justify-content-between w-100 mt-3">
-                                    <div class="flex-grow-1 flex-fill text-center flex-column d-none d-sm-flex">
+                                    <div class="flex-grow-1 flex-fill text-center flex-column d-none d-sm-flex" id="greetingBox">
                                         <p class="fs-5">How are you today?</p>
                                         <div class="d-flex justify-content-center gap-4 mt-4 mb-3">
-                                            <button class="btn button-outline btn-danger fw-bold px-2 py-1">NOT GOOD</button>
-                                            <button class="btn button-outline btn-success fw-bold px-2 py-1">GOOD</button>
+                                            <button class="btn button-outline btn-danger fw-bold px-2 py-1" id="notGoodButton">NOT GOOD</button>
+                                            <button class="btn button-outline btn-success fw-bold px-2 py-1" id="goodButton">GOOD</button>
                                         </div>
                                     </div>
                                     <div class="flex-grow-1 flex-fill">

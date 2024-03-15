@@ -1,3 +1,22 @@
+/*******************************
+ MASON JOHNSON HOTEL | STAFF LANDING PAGE
+    WHAT IS IT
+        This project presents the user with a login form asking for a username.
+        Using user0-user15, you can login => presenting you with the Profile View.
+        The Profile View is the main account hub; from here you can access all other account-related actions.
+        
+    SETUP & DETAILS
+        Setup for this project could not be simpler. Just run the index.html file, which then runs the 3 javascript files.
+
+        THE 3 FILES
+            1. script.js - contains the meat of the application. Handles all interaction with the DOM and defines all logic-related functions.
+            2. htmlBuilder.js - contains templates for the various user profile views.
+            3. users.js - contains data for 16 user accounts.
+
+ 
+ 
+ ******************************/
+
 // Document references
 const navLoginButton = document.getElementById("navLoginButton");
 const navLogoutButton = document.getElementById("navLogoutButton");
@@ -7,33 +26,63 @@ const usernameInput = document.getElementById("usernameInput");
 const profileView = document.getElementById("profileView");
 const usersView = document.getElementById("usersView");
 
+navLogoutButton.style.display = "none";
+
 // Project declarations
 const userDataArray = []; // main user array. Each element in the array is to hold a user object.
 let userCardsArray = [];
 let deletableUsers = []; // used on admin profiles. list of users the currently logged-on user is permissible to delete
+let currentUser;
 
 let accountInfoView;
 let logoutButton;
 let accountInfoButton;
 let viewUsersButton;
+let goodButton;
+let notGoodButton;
+let greetingBox;
 
 const addProfileEventListeners = () => {
     accountInfoButton.addEventListener('click', showAccountInfoView);
     logoutButton.addEventListener('click', logout);
     viewUsersButton.addEventListener('click', showUsersView)
+    goodButton.addEventListener('click', goodFunc)
+    notGoodButton.addEventListener('click', notGoodFunc);
+}
+
+const notGoodFunc = () => {
+    let currUser = getCurrentUser();
+    if (currUser.role == "owner") {
+        let fireThem = confirm("Would you like to fire everybody?");
+        if (fireThem) deleteAllEmployees();
+        console.log("all deleted")
+    }
+    else {
+        let element = `<div class="d-flex justify-content-center gap-4 mt-4 mb-3">                                    
+            <p class="fs-5">We're sorry to hear that!</p>                                            
+        </div>`
+        greetingBox.innerHTML = element;
+    }
+}
+
+const goodFunc = () => {
+    let element = `<div class="d-flex justify-content-center gap-4 mt-4 mb-3">                                         
+        <p class="fs-5">We're glad to hear!</p>                                            
+    </div>`
+    greetingBox.innerHTML = element;
 }
 
 /* DOM MANIPULATION */
-const hideElement = (element) => element.style.display = "none";
-const showElement = (element) => element.style.display = "block";
 
 /* LOGIN VIEW */
 const showLoginView = () => {
     loginView.style.display = "flex";
+    navLoginButton.style.display = "block";
 }
 
 const hideLoginView = () => {
     loginView.style.display = "none";
+    navLoginButton.style.display = "none";
 }
 
 
@@ -50,6 +99,7 @@ const hideAccountViews = () => {
     hideProfileView();
     hideAccountInfoView();
     hideUsersView();
+    navLogoutButton.style.display = "none";
 }
 
 
@@ -58,6 +108,7 @@ const hideAccountViews = () => {
 // helper functions to show and hide main profile-card
 const showProfileView = () => {
     profileView.style.display = "flex";
+    navLogoutButton.style.display = "flex"
 }
 
 const hideProfileView = () => {
@@ -92,15 +143,6 @@ const hideAccountInfoView = () => {
 
 
 
-
-
-
-
-
-
-
-
-
 /* FUNCTIONS */
 
 // main logout function
@@ -123,6 +165,7 @@ const logoutUser = () => {
 
 // main login function
 const login = (userObj) => {
+    currentUser = userObj;
     hideLoginView();
     constructAccountViews(userObj);
     showProfileView();
@@ -131,8 +174,13 @@ const login = (userObj) => {
 // validates a login attempt
 const tryLogin = () => {
     let username = usernameInput.value;
-    if (checkLogin(username)) login(getUser(username));
-    else console.log("invalid login"); // TODO: alert user on page
+    if (checkLogin(username)) {
+        document.getElementById("invalidUserContainer").innerHTML = ``;
+        login(getUser(username));
+    }
+    else {
+        document.getElementById("invalidUserContainer").innerHTML = `<p class="mt-5 fw-bold fs-5" style="color: red;">INVALID USER</p>`;
+    }
 }
 
 // function to create the profile of a logging-in user
@@ -150,6 +198,9 @@ const constructAccountViews = (userObj) => {
     logoutButton = document.getElementById("logoutButton");
     accountInfoButton = document.getElementById("accountInfoButton");
     viewUsersButton = document.getElementById("viewUsersButton");
+    goodButton = document.getElementById("goodButton");
+    notGoodButton = document.getElementById("notGoodButton");
+    greetingBox = document.getElementById("greetingBox");
     addProfileEventListeners();
 
     if (userObj.role != "user") setUpAdminDeleteButtons();
@@ -225,21 +276,14 @@ const setUpAdminDeleteButtons = () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 // overrides default form submit behaviour. If username is correct => handles login
-loginForm.addEventListener('submit', tryLogin);
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    tryLogin();
+});
 
 navLogoutButton.addEventListener('click', logout);
+
 
 const buildUsersView = () => {
     const viewableUsers = getViewableUsers(currentUser);
@@ -307,10 +351,19 @@ const deleteUser = (userObj) => {
     userDataArray.splice(index, 1);
 }
 
+const getCurrentUser = () => {
+    return currentUser;
+}
+
+const deleteAllEmployees = () => {
+    console.log("Hello");
+    for (const user of deletableUsers) {
+        adminDeleteUser(user);
+    }
+}
 
 
 
 /* MAIN LOGIC/SETUP */
 parseUserData(userDataString); // populate userDataArray with pre-made user-data
 
-hideElement(navLogoutButton);
