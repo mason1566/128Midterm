@@ -90,6 +90,17 @@ const hideAccountInfoView = () => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 /* FUNCTIONS */
 
 // main logout function
@@ -102,7 +113,12 @@ const logout = () => {
 // because technically the user could simply change the display type in the html, 
 // we need to delete the elements that contained user-data.
 const logoutUser = () => {
-    // TODO
+    userCardsArray = [];
+    deletableUsers = [];
+    accountInfoView = ``;
+    logoutButton = ``;
+    accountInfoButton = ``;
+    viewUsersButton = ``;
 }
 
 // main login function
@@ -186,9 +202,16 @@ const buildUserCards = (userObj, viewableUsers) => {
     return cards
 }
 
+
+
+
+
+/* ADMIN USER DELETION */
 const adminDeleteUser = (userObj) => {
     document.getElementById(`${userObj.username}Card`).style.display = "none";
-    deleterUser(userObj);
+    console.log(userObj.username);
+    deleteUser(userObj);
+    
 }
 
 // this function was a pain to write...
@@ -196,9 +219,22 @@ const setUpAdminDeleteButtons = () => {
     for (let i = 0; i < deletableUsers.length; i++) { // add 
         let username = deletableUsers[i].username;
         let deleteButton = document.getElementById(`${username}Delete`);
-        deleteButton.addEventListener('click', () => adminDeleteUser(getUser(username)));
+        deleteButton.addEventListener('click', () => adminDeleteUser(deletableUsers[i]));
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // overrides default form submit behaviour. If username is correct => handles login
 loginForm.addEventListener('submit', tryLogin);
@@ -258,12 +294,16 @@ const checkLogin = (username) => {
 
 
 // returns the index in userDataArray of the passed-in user. -1 if not found
-const getUserIndex = (userObj) => {
-    return userDataArray.findIndex(userObj);
+const getUserIndex = (username) => {
+    for (let i = 0; i < userDataArray.length; i++) {
+        if (userDataArray[i].username == username) return i;
+    }
+    return -1;
 }
 
 // deletes user at index
-const deleterUser = (index) => {
+const deleteUser = (userObj) => {
+    let index = getUserIndex(userObj.username);
     userDataArray.splice(index, 1);
 }
 
