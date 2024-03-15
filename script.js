@@ -10,7 +10,7 @@ const usersView = document.getElementById("usersView");
 // Project declarations
 const userDataArray = []; // main user array. Each element in the array is to hold a user object.
 let userCardsArray = [];
-let deletableCardUsernames = []; // used on admin profiles. list of users the currently logged-on user is permissible to delete
+let deletableUsers = []; // used on admin profiles. list of users the currently logged-on user is permissible to delete
 
 let accountInfoView;
 let logoutButton;
@@ -116,7 +116,7 @@ const login = (userObj) => {
 const tryLogin = () => {
     let username = usernameInput.value;
     if (checkLogin(username)) login(getUser(username));
-    else console.log("invalid login");
+    else console.log("invalid login"); // TODO: alert user on page
 }
 
 // function to create the profile of a logging-in user
@@ -166,7 +166,7 @@ const buildUserCards = (userObj, viewableUsers) => {
         for (let i = 0; i < viewableUsers.length; i++) {
             if (viewableUsers[i].role == "user") {
                 cards.push(buildDeletableCard(viewableUsers[i]));
-                deletableCardUsernames.push(viewableUsers.username);
+                deletableUsers.push(viewableUsers[i]);
             } 
             else cards.push(buildUserCard(viewableUsers[i]));
         }
@@ -178,7 +178,7 @@ const buildUserCards = (userObj, viewableUsers) => {
             } 
             else {
                 cards.push(buildDeletableCard(viewableUsers[i]));
-                deletableCardUsernames.push(viewableUsers.username);
+                deletableUsers.push(viewableUsers[i]);
                 console.log(viewableUsers.username)
             }
         }
@@ -186,15 +186,17 @@ const buildUserCards = (userObj, viewableUsers) => {
     return cards
 }
 
-const adminDeleteUser = (username) => {
-    console.log(username);
+const adminDeleteUser = (userObj) => {
+    document.getElementById(`${userObj.username}Card`).style.display = "none";
+    deleterUser(userObj);
 }
 
+// this function was a pain to write...
 const setUpAdminDeleteButtons = () => {
-    for (let i = 0; i < deletableCardUsernames.length; i++) {
-        let uname = deletableCardUsernames[i];
-        let deleteButton = document.getElementById(`${uname}Delete`);
-        console.log(deleteButton);
+    for (let i = 0; i < deletableUsers.length; i++) { // add 
+        let username = deletableUsers[i].username;
+        let deleteButton = document.getElementById(`${username}Delete`);
+        deleteButton.addEventListener('click', () => adminDeleteUser(getUser(username)));
     }
 }
 

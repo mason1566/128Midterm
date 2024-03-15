@@ -58,8 +58,9 @@ const buildUserCard = (userObj) => {
     return card
 };
 
+// each element has a delete button with a unique id in form: "{username}Delete"
 const buildDeletableCard = (userObj) => {
-    let card = `<div class="card card-style col-10 col-md-5 col-lg-3 flex-wrap" style="height: 330px;" class="user-card">
+    let card = `<div class="card card-style col-10 col-md-5 col-lg-3 flex-wrap" style="height: 330px;" class="user-card" id="${userObj.username}Card">
                     <!-- account info -->
                     <div class="card-body p-0 ps-1 pt-4 d-flex justify-content-start align-items-center flex-column">
                         <div class="mx-auto"><img src="${userObj.image}.jpeg" class="usersView-image" alt=""></div>
