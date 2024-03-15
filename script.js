@@ -11,9 +11,26 @@
         THE 3 FILES
             1. script.js - contains the meat of the application. Handles all interaction with the DOM and defines all logic-related functions.
             2. htmlBuilder.js - contains templates for the various user profile views.
-            3. users.js - contains data for 16 user accounts.
+            3. users.js - contains data for the 16 user accounts. (add more if you'd like)
 
- 
+    REFLECTION
+        I learned a lot of troubleshooting and bug fixing from this project. It was so easy to get lost in the code, but just forcing myself to think it through logically,
+        even though tough, got me through to the end. I restructured the entire project at least 3 times. It was very messy at one point, but I gradually kept trying
+        to make it simpler, eventually getting to a point that I'm happy with (plus it works).
+
+        I designed the different parts of the program as views:
+                LOGIN VIEW - login box and login button
+
+                PROFILE VIEW - main welcome 
+                
+                ACCOUNT INFO VIEW - side pop-up card that contains all info about the logged-in user
+                
+                USERS VIEW - This is where the user can see info about other users:
+                    - Normal users can see themselves, and any users of a higher role.
+                    - Admins can see everybody, but can only delete normal users.
+                    - The owner can see everybody and can delete everybody (except himself).
+
+        Each view has its own associated hide and show functions.
  
  ******************************/
 
@@ -50,6 +67,7 @@ const addProfileEventListeners = () => {
     notGoodButton.addEventListener('click', notGoodFunc);
 }
 
+// Ran when the user presses the "not good" button
 const notGoodFunc = () => {
     let currUser = getCurrentUser();
     if (currUser.role == "owner") {
@@ -57,14 +75,13 @@ const notGoodFunc = () => {
         if (fireThem) deleteAllEmployees();
         console.log("all deleted")
     }
-    else {
-        let element = `<div class="d-flex justify-content-center gap-4 mt-4 mb-3">                                    
-            <p class="fs-5">We're sorry to hear that!</p>                                            
-        </div>`
-        greetingBox.innerHTML = element;
-    }
+    let element = `<div class="d-flex justify-content-center gap-4 mt-4 mb-3">                                    
+        <p class="fs-5">We're sorry to hear that!</p>                                            
+    </div>`
+    greetingBox.innerHTML = element;
 }
 
+// Ran when the user presses the "good" button
 const goodFunc = () => {
     let element = `<div class="d-flex justify-content-center gap-4 mt-4 mb-3">                                         
         <p class="fs-5">We're glad to hear!</p>                                            
