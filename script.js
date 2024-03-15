@@ -1,98 +1,168 @@
+const userDataArray = []; // main user array. Each element in the array is to hold a user object.
+const userCardsArray = [];
+
 /* DOM MANIPULATION */
 const hideElement = (element) => element.style.display = "none";
 const showElement = (element) => element.style.display = "block";
 
-/* HEADER */
+// Document references
 const navLoginButton = document.getElementById("navLoginButton");
 const navLogoutButton = document.getElementById("navLogoutButton");
+const loginView = document.getElementById("loginView");
+const loginForm = document.getElementById("loginForm");
+const usernameInput = document.getElementById("usernameInput");
 
 
 /* LOGIN VIEW */
-const loginView = document.getElementById("loginView");
-const loginForm = document.getElementById("loginForm");
-const unameTextInput = document.getElementById("usernameInput");
+const showLoginView = () => {
+    // TODO
+}
 
-/* PROFILE VIEW */
+const hideLoginView = () => {
+    // TODO
+}
+
+
+/* ACCOUNT VIEWS */
+
+// helper functions to show and hide ui elements relating to logged-in users
+const showAccountViews = () => {
+    // TODO
+}
+
+const hideAccountViews = () => {
+    // TODO
+}
+
+
+/* profile view */
 const profileView = document.getElementById("profileView");
 let accountInfoCard;
 
+// helper functions to show and hide main profile-card
+const showProfileView = () => {
+    // TODO
+}
 
-
-
-const displayAccountInfo = () => {
-    showElement(accountInfoCard);
+const hideProfileView = () => {
+    // TODO
 }
 
 
-/* USERS VIEW */
+
+/* users view */
 const usersView = document.getElementById("usersView");
-let userCardsArray;
 
-const displayUsersInfo = () => {
-    usersView.style.display = "flex";
+// helper functions to show and hide users list view.
+const showUsersView = () => {
+    // TODO
 }
 
+const hideUsersView = () => {
+    // TODO
+}
+
+/* account info view */
+
+// helper functions to show and hide account info view
+const showAccountInfoView = () => {
+    // TODO
+}
+
+const hideAccountInfoView = () => {
+
+}
 
 
 
 /* FUNCTIONS */
-const logout = () => {
-    currentUser = "";
-    profileView.innerHTML = ``;
-    usersView.innerHTML = ``;
-    accountInfoCard.innerHTML = ``;
-    hideAllViews();
-    hideElement(navLogoutButton);
 
-    showElement(navLoginButton);
-    showElement(loginView);
+// main logout function
+const logout = () => {
+    hideAccountViews();
+    logoutUser();
+    showLoginView();
 }
 
-const hideAllViews = () => {
-    hideElement(loginView);
-    hideElement(profileView);
-    hideElement(usersView);
+const logoutUser = () => {
+    // TODO
+}
+
+// main login function
+const login = (userObj) => {
+    hideLoginView();
+    constructAccountViews(userObj);
+    showProfileView();
+}
+
+const tryLogin = () => {
+    let username = usernameInput.value;
+    if (checkLogin(username)) login(getUser(username));
+    else console.log("invalid login");
 }
 
 // overrides default form submit behaviour. If username is correct, handles login logic
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault(); // done to prevent the page from refreshing (the default submit action)
-    let userInput = unameTextInput.value;
+loginForm.addEventListener('submit', tryLogin);
 
-    let isValid = checkValidUser(userInput); // checks user input against valid usernames, returning true if found.
-    if (isValid) setupProfile(getUser(unameTextInput.value));
-    else console.log("Invalid user");
-});
+const constructAccountViews = (userObj) => {
+    buildProfile(userObj); // builds default user profile according to userObj values.
+    let users = getViewableUsers(userObj);
+    buildUserCards(userObj, users);
+}
+
+// returns an array of userObjects that the passed-in user is permissible to view
+const getViewableUsers = (userObj) => {
+    if (userObj.role == "user") {
+        let users = [];
+        for (const user of userDataArray) {
+            if (user.role == "admin" || user.role == "owner") users.push(user);
+        }
+        users.push(userObj);
+        return users;
+    }
+    else return userDataArray;
+}
+
+// used to build the viewable cards for the currently logged-in user
+const buildUserCards = (userObj, usersArray) => {
+    let role = userObj.role;
+
+    if (role == "user") {
+        for (let user of usersArray) {
+            userCardsArray.push(buildUserCard(user));
+        }
+    }
+}
 
 navLogoutButton.addEventListener('click', logout);
 
-const setupProfile = (userObj) => {
-    hideElement(loginView);
-    hideElement(navLoginButton);
-    currentUser = userObj;
+// const setupProfile = (userObj) => {
+//     hideElement(loginView);
+//     hideElement(navLoginButton);
+//     currentUser = userObj;
 
-    // make main user profile card.
-    let profile;
-    if (currentUser.role == "user") profile = buildProfile(userObj);
-    else profile = buildAdminProfile(currentUser);
+//     // make main user profile card.
+//     let profile;
+//     if (currentUser.role == "user") profile = buildProfile(userObj);
+//     else profile = buildAdminProfile(currentUser);
 
-    profileView.innerHTML = profile;
+//     profileView.innerHTML = profile;
 
-    // create the users view
-    usersView.innerHTML = buildUsersView();
-    usersView.style.display = "none";
+//     // create the users view
+//     usersView.innerHTML = buildUsersView();
+//     usersView.style.display = "none";
 
-    // adding event listeners for card links
-    document.getElementById("accountInfoLink").addEventListener('click', displayAccountInfo);
-    document.getElementById("viewUsersLink").addEventListener('click', displayUsersInfo);
-    document.getElementById("logoutLink").addEventListener('click', logout);
+//     // adding event listeners for card links
+//     document.getElementById("accountInfoLink").addEventListener('click', displayAccountInfo);
+//     document.getElementById("viewUsersLink").addEventListener('click', displayUsersInfo);
+//     document.getElementById("logoutLink").addEventListener('click', logout);
     
-    accountInfoCard = document.getElementById("accountInfo");
-    hideElement(accountInfoCard);
+//     accountInfoCard = document.getElementById("accountInfo");
+//     hideElement(accountInfoCard);
 
-    showElement(profileView);
-    showElement(navLogoutButton);
-}
+//     showElement(profileView);
+//     showElement(navLogoutButton);
+// }
 
 const buildUsersView = () => {
     const viewableUsers = getViewableUsers(currentUser);
@@ -145,31 +215,19 @@ const checkLogin = (username) => {
     return false;
 }
 
-const getViewableUsers = (userObj) => {
-    if (userObj.role == "user") {
-        let users = [];
-        for (const user of userDataArray) {
-            if (user.role == "admin" || user.role == "owner") users.push(user);
-        }
-        users.push(userObj);
-        return users;
-    }
-    else return userDataArray;
-}
 
+// returns the index in userDataArray of the passed-in user. -1 if not found
 const getUserIndex = (userObj) => {
     return userDataArray.findIndex(userObj);
 }
 
+// deletes user at index
 const deleterUser = (index) => {
     userDataArray.splice(index, 1);
 }
 
 
 /* MAIN LOGIC/SETUP */
-const userDataArray = []; // main user array. Each element in the array is to hold a user object.
 parseUserData(userDataString); // populate userDataArray with pre-made user-data
-
-let currentUser; // to hold the currently logged in user
 
 hideElement(navLogoutButton);
