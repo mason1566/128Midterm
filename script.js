@@ -1,25 +1,32 @@
-const userDataArray = []; // main user array. Each element in the array is to hold a user object.
-const userCardsArray = [];
-
-/* DOM MANIPULATION */
-const hideElement = (element) => element.style.display = "none";
-const showElement = (element) => element.style.display = "block";
-
 // Document references
 const navLoginButton = document.getElementById("navLoginButton");
 const navLogoutButton = document.getElementById("navLogoutButton");
 const loginView = document.getElementById("loginView");
 const loginForm = document.getElementById("loginForm");
 const usernameInput = document.getElementById("usernameInput");
+const profileView = document.getElementById("profileView");
+const usersView = document.getElementById("usersView");
 
+// Project declarations
+const userDataArray = []; // main user array. Each element in the array is to hold a user object.
+const userCardsArray = [];
+
+let accountInfoView;
+let logoutButton;
+let accountInfoButton;
+let viewUsersButton;
+
+/* DOM MANIPULATION */
+const hideElement = (element) => element.style.display = "none";
+const showElement = (element) => element.style.display = "block";
 
 /* LOGIN VIEW */
 const showLoginView = () => {
-    // TODO
+    loginView.style.display = "flex";
 }
 
 const hideLoginView = () => {
-    // TODO
+    loginView.style.display = "none";
 }
 
 
@@ -27,50 +34,51 @@ const hideLoginView = () => {
 
 // helper functions to show and hide ui elements relating to logged-in users
 const showAccountViews = () => {
-    // TODO
+    showProfileView();
+    showAccountInfoView()
+    showUsersView();
 }
 
 const hideAccountViews = () => {
-    // TODO
+    hideProfileView();
+    hideAccountInfoView();
+    hideUsersView();
 }
 
 
 /* profile view */
-const profileView = document.getElementById("profileView");
-let accountInfoCard;
 
 // helper functions to show and hide main profile-card
 const showProfileView = () => {
-    // TODO
+    profileView.style.display = "flex";
 }
 
 const hideProfileView = () => {
-    // TODO
+    profileView.style.display = "none";
 }
 
 
 
 /* users view */
-const usersView = document.getElementById("usersView");
 
 // helper functions to show and hide users list view.
 const showUsersView = () => {
-    // TODO
+    usersView.style.display = "flex";
 }
 
 const hideUsersView = () => {
-    // TODO
+    usersView.style.display = "none";
 }
 
 /* account info view */
 
 // helper functions to show and hide account info view
 const showAccountInfoView = () => {
-    // TODO
+    accountInfoView.style.display = "flex";
 }
 
 const hideAccountInfoView = () => {
-
+    accountInfoView.style.display = "none";
 }
 
 
@@ -93,6 +101,7 @@ const login = (userObj) => {
     hideLoginView();
     constructAccountViews(userObj);
     showProfileView();
+
 }
 
 const tryLogin = () => {
@@ -101,13 +110,16 @@ const tryLogin = () => {
     else console.log("invalid login");
 }
 
-// overrides default form submit behaviour. If username is correct, handles login logic
+// overrides default form submit behaviour. If username is correct => handles login
 loginForm.addEventListener('submit', tryLogin);
 
 const constructAccountViews = (userObj) => {
-    buildProfile(userObj); // builds default user profile according to userObj values.
+    profileView.innerHTML = buildProfile(userObj); // builds default user profile according to userObj values.
     let users = getViewableUsers(userObj);
     buildUserCards(userObj, users);
+
+    for (const userCard of userCardsArray) usersView.innerHTML += userCard;
+    
 }
 
 // returns an array of userObjects that the passed-in user is permissible to view
@@ -201,7 +213,7 @@ const createUserObject = (userArray) => {
     return currUser;
 }
 
-
+// returns the userObj that matches with passed-in username.
 const getUser = (username) => {
     for (const user of userDataArray) {
         if (user.username == username) return user;

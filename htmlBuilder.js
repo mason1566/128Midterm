@@ -16,9 +16,9 @@ const buildProfile = (userObj) => {
                                     <div class="flex-grow-1 flex-fill">
                                         <p class="fs-5 ps-5">Navigation:</p>
                                         <ul class="ps-5 ms-5 list-unstyled">
-                                            <li><a href="#" id="accountInfoLink">Account Info</a></li>
-                                            <li><a href="#" id="viewUsersLink">View Users</a></li>
-                                            <li><a href="#" id="logoutLink">Logout</a></li>
+                                            <li><a href="#" id="accountInfoButton">Account Info</a></li>
+                                            <li><a href="#" id="viewUsersButton">View Users</a></li>
+                                            <li><a href="#" id="logoutButton">Logout</a></li>
                                         </ul>
                                     </div>
                                 </div>
