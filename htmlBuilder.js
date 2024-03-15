@@ -1,12 +1,12 @@
 const buildProfile = (userObj) => {
-    let profileCard = `<div class="card card-style col-10 col-md-6 mx-auto" style="height: 470px;">
+    let profileCard = `<div class="card card-style col-10 col-md-8 col-lg-6 mx-4" style="height: 470px;">
                             <!-- profile body -->
                             <div class="card-body p-0 pt-5 d-flex justify-content-start align-items-center flex-column">
                                 <div class="mx-auto"><img src="${userObj.image}.jpeg" class="profile-image" alt=""></div>
                                 <p class="card-title fw-bold fs-2 mt-3">Welcome, ${userObj.first_name}!</p>
 
                                 <div class="d-flex justify-content-between w-100 mt-3">
-                                    <div class="flex-grow-1 flex-fill text-center d-flex flex-column">
+                                    <div class="flex-grow-1 flex-fill text-center flex-column d-none d-sm-flex">
                                         <p class="fs-5">How are you today?</p>
                                         <div class="d-flex justify-content-center gap-4 mt-4 mb-3">
                                             <button class="btn button-outline btn-danger fw-bold px-2 py-1">NOT GOOD</button>
@@ -42,7 +42,7 @@ const buildProfile = (userObj) => {
 
 
 const buildUserCard = (userObj) => {
-    let card = `<div class="card card-style col-10 col-md-5 col-lg-3 flex-wrap" style="height: 310px;" class="user-card">
+    let card = `<div class="card card-style col-10 col-md-5 col-lg-3 flex-wrap" style="height: 330px;" class="user-card">
                     <!-- account info -->
                     <div class="card-body p-0 ps-1 pt-4 d-flex justify-content-start align-items-center flex-column">
                         <div class="mx-auto"><img src="${userObj.image}.jpeg" class="usersView-image" alt=""></div>
@@ -59,7 +59,7 @@ const buildUserCard = (userObj) => {
 };
 
 const buildDeletableCard = (userObj) => {
-    let card = `<div class="card card-style col-10 col-md-5 col-lg-3 flex-wrap" style="height: 310px;" class="user-card">
+    let card = `<div class="card card-style col-10 col-md-5 col-lg-3 flex-wrap" style="height: 330px;" class="user-card">
                     <!-- account info -->
                     <div class="card-body p-0 ps-1 pt-4 d-flex justify-content-start align-items-center flex-column">
                         <div class="mx-auto"><img src="${userObj.image}.jpeg" class="usersView-image" alt=""></div>

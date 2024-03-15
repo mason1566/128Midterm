@@ -10,6 +10,7 @@ const usersView = document.getElementById("usersView");
 // Project declarations
 const userDataArray = []; // main user array. Each element in the array is to hold a user object.
 let userCardsArray = [];
+let deletableCardUsernames = []; // used on admin profiles. list of users the currently logged-on user is permissible to delete
 
 let accountInfoView;
 let logoutButton;
@@ -98,6 +99,8 @@ const logout = () => {
     showLoginView();
 }
 
+// because technically the user could simply change the display type in the html, 
+// we need to delete the elements that contained user-data.
 const logoutUser = () => {
     // TODO
 }
@@ -109,6 +112,7 @@ const login = (userObj) => {
     showProfileView();
 }
 
+// validates a login attempt
 const tryLogin = () => {
     let username = usernameInput.value;
     if (checkLogin(username)) login(getUser(username));
@@ -125,12 +129,14 @@ const constructAccountViews = (userObj) => {
     for (let i = 0; i < userCardsArray.length; i++) cards += userCardsArray[i];
     usersView.innerHTML = cards;
 
-    // newly injected html event-listener setup
+    // event-listener setup for newly injected html elements
     accountInfoView = document.getElementById("accountInfo");
     logoutButton = document.getElementById("logoutButton");
     accountInfoButton = document.getElementById("accountInfoButton");
     viewUsersButton = document.getElementById("viewUsersButton");
     addProfileEventListeners();
+
+    if (userObj.role != "user") setUpAdminDeleteButtons();
 }
 
 // returns an array of userObjects that the passed-in user is permissible to view
@@ -146,51 +152,56 @@ const getViewableUsers = (userObj) => {
     else return userDataArray;
 }
 
-// used to build the viewable cards for the currently logged-in user
-const buildUserCards = (userObj, usersArray) => {
+// used to build the viewable cards for the currently logged-in user. Returns an array of html user-cards
+const buildUserCards = (userObj, viewableUsers) => {
     let role = userObj.role;
     cards = [];
 
     if (role == "user") {
-        for (let i = 0; i < usersArray.length; i++) {
-            cards.push(buildUserCard(usersArray[i]));
+        for (let i = 0; i < viewableUsers.length; i++) {
+            cards.push(buildUserCard(viewableUsers[i]));
+        }
+    }
+    else if (role == "admin") {
+        for (let i = 0; i < viewableUsers.length; i++) {
+            if (viewableUsers[i].role == "user") {
+                cards.push(buildDeletableCard(viewableUsers[i]));
+                deletableCardUsernames.push(viewableUsers.username);
+            } 
+            else cards.push(buildUserCard(viewableUsers[i]));
+        }
+    }
+    else if (role == "owner") {
+        for (let i = 0; i < viewableUsers.length; i++) {
+            if (userObj == viewableUsers[i]) { // if current viewableUser is the owner
+                cards.push(buildUserCard(viewableUsers[i]));
+            } 
+            else {
+                cards.push(buildDeletableCard(viewableUsers[i]));
+                deletableCardUsernames.push(viewableUsers.username);
+                console.log(viewableUsers.username)
+            }
         }
     }
     return cards
+}
+
+const adminDeleteUser = (username) => {
+    console.log(username);
+}
+
+const setUpAdminDeleteButtons = () => {
+    for (let i = 0; i < deletableCardUsernames.length; i++) {
+        let uname = deletableCardUsernames[i];
+        let deleteButton = document.getElementById(`${uname}Delete`);
+        console.log(deleteButton);
+    }
 }
 
 // overrides default form submit behaviour. If username is correct => handles login
 loginForm.addEventListener('submit', tryLogin);
 
 navLogoutButton.addEventListener('click', logout);
-
-// const setupProfile = (userObj) => {
-//     hideElement(loginView);
-//     hideElement(navLoginButton);
-//     currentUser = userObj;
-
-//     // make main user profile card.
-//     let profile;
-//     if (currentUser.role == "user") profile = buildProfile(userObj);
-//     else profile = buildAdminProfile(currentUser);
-
-//     profileView.innerHTML = profile;
-
-//     // create the users view
-//     usersView.innerHTML = buildUsersView();
-//     usersView.style.display = "none";
-
-//     // adding event listeners for card links
-//     document.getElementById("accountInfoLink").addEventListener('click', displayAccountInfo);
-//     document.getElementById("viewUsersLink").addEventListener('click', displayUsersInfo);
-//     document.getElementById("logoutLink").addEventListener('click', logout);
-    
-//     accountInfoCard = document.getElementById("accountInfo");
-//     hideElement(accountInfoCard);
-
-//     showElement(profileView);
-//     showElement(navLogoutButton);
-// }
 
 const buildUsersView = () => {
     const viewableUsers = getViewableUsers(currentUser);
@@ -237,7 +248,7 @@ const getUser = (username) => {
     return null;
 }
 
-// returns true if username is valid
+// returns true if username is that of a valid user
 const checkLogin = (username) => {
     for (const user of userDataArray) if (user.username == username) return true;
     return false;
@@ -253,6 +264,8 @@ const getUserIndex = (userObj) => {
 const deleterUser = (index) => {
     userDataArray.splice(index, 1);
 }
+
+
 
 
 /* MAIN LOGIC/SETUP */
